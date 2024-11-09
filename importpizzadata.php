@@ -1,7 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-//include_once('header.php');
+include_once('header.php');
 if (extension_loaded('mysqli')) {
     // credentials (replace with your own)
     $host = 'localhost';
