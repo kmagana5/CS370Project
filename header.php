@@ -11,7 +11,7 @@
     <nav>
         <ul>
             <li><a href="index.php">Home</a></li>
-            <li><a href="importNewsData.php">Import News</a></li>
+            <li><a href="importStoryData.php">Import Stories</a></li>
             <li><a href="importpizzadata.php">Import Pizza</a></li>
             <!-- Add more links as needed -->
         </ul>

@@ -39,11 +39,11 @@ if( $_SERVER[ "REQUEST_METHOD"] == "POST" )
 ?>
 <html>
 <head>
-    <title>News Data Import</title>
+    <title>Story Data Import</title>
 </head>
 <body>
 
-<h1>News Data Import</h1>
+<h1>Story Data Import</h1>
 
 <?php
 if( $import_attempted )
@@ -51,7 +51,7 @@ if( $import_attempted )
     if( $import_succeeded )
     {
         ?>
-        <h1><span style="color: green;">Import Succeeded!</span></h1>
+        <h1><span style="color: green; font-size: 10vw; flex: auto;">Import Succeeded!</span></h1>
         <span style="font-style: italic">Tell me how many rows were imported.</span>
         <?php
     }
