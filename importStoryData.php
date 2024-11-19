@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $successful_imports = 0;
         $failed_imports = 0;
 
-        for ($i = 1; $i < sizeof($lines); ++$i) {
+        for ($i = 0; $i < sizeof($lines); ++$i) {
             $line = $lines[$i];
 
             if (trim($line) === "") {
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($stmt) {
                 // Removed story_id since it is AUTO_INCREMENT
-                $stmt->bind_param('sisss', $parsed_csv_line[1], $parsed_csv_line[2], $parsed_csv_line[3], $parsed_csv_line[4], $parsed_csv_line[5]);
+                $stmt->bind_param('sisss', $parsed_csv_line[0], $parsed_csv_line[1], $parsed_csv_line[2], $parsed_csv_line[3], $parsed_csv_line[4]);
 
                 if ($stmt->execute()) {
                     $successful_imports++;
