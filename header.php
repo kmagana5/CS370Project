@@ -7,30 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-<!--    <style>-->
-<!--        .navbar-custom {-->
-<!--            background-color: maroon;-->
-<!--            font-family: 'Poppins', sans-serif;-->
-<!--        }-->
-<!--        .navbar-custom .navbar-brand,-->
-<!--        .navbar-custom .nav-link {-->
-<!--            color: white;-->
-<!--        }-->
-<!--        .navbar-custom .nav-link:hover {-->
-<!--            color: #ffcccc; /* Light maroon/pinkish tint on hover */-->
-<!--        }-->
-<!--        .navbar-custom .navbar-text,-->
-<!--        .navbar-custom .navbar-brand img {-->
-<!--            color: white;-->
-<!--            max-height: 40px;-->
-<!--            margin-right: 10px;-->
-<!--        }-->
-<!--        .navbar-custom .navbar-text img {-->
-<!--            height: 30px;-->
-<!--            width: auto;-->
-<!--            margin-right: 5px;-->
-<!--        }-->
-<!--    </style>-->
 </head>
 <body>
 <header>
@@ -45,7 +21,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-
                     <li class="nav-item">
                         <a class="nav-link" href="importStoryData.php">Import Stories</a>
                     </li>
