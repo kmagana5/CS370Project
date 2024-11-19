@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($stmt) {
                 // Removed story_id since it is AUTO_INCREMENT
-                $stmt->bind_param('sisss', $parsed_csv_line[0], $parsed_csv_line[1], $parsed_csv_line[2], $parsed_csv_line[3], $parsed_csv_line[4]);
+                $stmt->bind_param('sisss', $parsed_csv_line[1], $parsed_csv_line[2], $parsed_csv_line[3], $parsed_csv_line[4], $parsed_csv_line[5]);
 
                 if ($stmt->execute()) {
                     $successful_imports++;
