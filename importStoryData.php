@@ -16,12 +16,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows === 0) {
         $create_table_query = "
         CREATE TABLE story (
-            story_id INT PRIMARY KEY AUTO_INCREMENT,
-            headline VARCHAR(255),
-            views INT,
-            publish_date DATETIME,
-            category_id INT,
-            source_url VARCHAR(255)
+            story_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+            headline VARCHAR(255) NOT NULL,
+            views INT NOT NULL,
+            publish_date DATETIME NOT NULL,
+            category_id INT NOT NULL,
+            source_url VARCHAR(255) NOT NULL
         )
     ";
         if ($db->query($create_table_query) === TRUE) {
