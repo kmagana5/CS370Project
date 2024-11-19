@@ -27,7 +27,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Import Authors</h5>
                         <p class="card-text">Here is where you add the information about the amazing authors keeping this incredibly niche news website running.</p>
-                        <a href="importpizzadata.php" class="btn btn-primary">View Authors</a>
+                        <a href="importAuthorData.php" class="btn btn-primary">View Authors</a>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Import Comments</h5>
                         <p class="card-text">Add data relating to the comments our wonderful users make about caracals</p>
-                        <a href="importpizzadata.php" class="btn btn-primary">View Authors</a>
+                        <a href="importCommentData.php" class="btn btn-primary">View Authors</a>
                     </div>
                 </div>
             </div>

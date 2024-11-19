@@ -1,0 +1,13 @@
+-Kobie
+    -import story data page
+-Nav
+-Stevan
+-Isaac
+
+General stuff to do:
+-import author data page
+-import comments data page
+-home page
+-author report - Authors and their comments
+-story report
+-comments report

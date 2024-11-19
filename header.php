@@ -25,10 +25,10 @@
                         <a class="nav-link" href="importStoryData.php">Import Stories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="importpizzadata.php">Import Authors</a>
+                        <a class="nav-link" href="importAuthorData.php">Import Authors</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="" >Import Comments</a>
+                        <a class="nav-link" href="importCommentData.php" >Import Comments</a>
                     </li>
                     <li>
                         <a class="nav-link" href="">Reports</a>
