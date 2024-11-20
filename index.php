@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Import Comments</h5>
                         <p class="card-text">Add data relating to the comments our wonderful users make about caracals</p>
-                        <a href="importCommentData.php" class="btn btn-primary">View Authors</a>
+                        <a href="importCommentData.php" class="btn btn-primary">View Comments</a>
                     </div>
                 </div>
             </div>
