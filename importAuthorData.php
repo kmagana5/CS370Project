@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $successful_imports = 0;
         $failed_imports = 0;
 
-        for ($i = 0; $i < sizeof($lines); ++$i) {
+        for ($i = 1; $i < sizeof($lines); ++$i) {
             $line = $lines[$i];
 
             if (trim($line) === "") {
