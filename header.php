@@ -33,6 +33,9 @@
                     <li>
                         <a class="nav-link" href="">Reports</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="createDatabase.php">Create Database</a>
+                    </li>
                 </ul>
             </div>
         </div>

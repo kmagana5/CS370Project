@@ -20,8 +20,8 @@ CREATE TABLE Story (
     category_id INT,
     source_id INT,
     PRIMARY KEY (story_id),
-    CONSTRAINT FK_Story_Category FOREIGN KEY (category_id) REFERENCES Category(category_id),
-    CONSTRAINT FK_Story_Source FOREIGN KEY (source_id) REFERENCES Source(source_id)
+    CONSTRAINT FK_Story_Category FOREIGN KEY (category_id) REFERENCES Category(category_id) ON DELETE CASCADE,
+    CONSTRAINT FK_Story_Source FOREIGN KEY (source_id) REFERENCES Source(source_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Author (
@@ -37,8 +37,8 @@ CREATE TABLE Written (
     story_id INT NOT NULL,
     author_id INT NOT NULL,
     PRIMARY KEY (story_id, author_id),
-    CONSTRAINT FK_Written_Story FOREIGN KEY (story_id) REFERENCES Story(story_id),
-    CONSTRAINT FK_Written_Author FOREIGN KEY (author_id) REFERENCES Author(author_id)
+    CONSTRAINT FK_Written_Story FOREIGN KEY (story_id) REFERENCES Story(story_id) ON DELETE CASCADE,
+    CONSTRAINT FK_Written_Author FOREIGN KEY (author_id) REFERENCES Author(author_id) ON DELETE CASCADE
 );
 
 CREATE TABLE EditorNotes (
@@ -47,8 +47,8 @@ CREATE TABLE EditorNotes (
     author_id INT NOT NULL,
     time_added DATETIME NOT NULL,
     PRIMARY KEY (note_id, story_id),
-    CONSTRAINT FK_EditorNotes_Story FOREIGN KEY (story_id) REFERENCES Story(story_id),
-    CONSTRAINT FK_EditorNotes_Author FOREIGN KEY (author_id) REFERENCES Author(author_id)
+    CONSTRAINT FK_EditorNotes_Story FOREIGN KEY (story_id) REFERENCES Story(story_id) ON DELETE CASCADE,
+    CONSTRAINT FK_EditorNotes_Author FOREIGN KEY (author_id) REFERENCES Author(author_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Image (
@@ -58,7 +58,7 @@ CREATE TABLE Image (
     alt_text VARCHAR(255) NOT NULL,
     date_uploaded VARCHAR(255) NOT NULL,
     PRIMARY KEY (image_id, story_id),
-    CONSTRAINT FK_Image_Story FOREIGN KEY (story_id) REFERENCES Story(story_id)
+    CONSTRAINT FK_Image_Story FOREIGN KEY (story_id) REFERENCES Story(story_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Analytics (
@@ -68,7 +68,7 @@ CREATE TABLE Analytics (
     shares INT NOT NULL,
     time_reading_in_minutes INT NOT NULL,
     PRIMARY KEY (story_id),
-    CONSTRAINT FK_Analytics_Story FOREIGN KEY (story_id) REFERENCES Story(story_id)
+    CONSTRAINT FK_Analytics_Story FOREIGN KEY (story_id) REFERENCES Story(story_id) ON DELETE CASCADE
 );
 
 
@@ -80,7 +80,7 @@ CREATE TABLE Advertiser (
     business_email VARCHAR(255) NOT NULL,
     category_id INT,
     PRIMARY KEY (advertiser_id),
-    CONSTRAINT FK_Advertiser_Category FOREIGN KEY (category_id) REFERENCES Category(category_id)
+    CONSTRAINT FK_Advertiser_Category FOREIGN KEY (category_id) REFERENCES Category(category_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Subscription (
@@ -107,8 +107,8 @@ CREATE TABLE User (
     card_id INT,
     subscription_status INT,
     PRIMARY KEY (user_id),
-    CONSTRAINT FK_User_Card FOREIGN KEY (card_id) REFERENCES Card(card_id),
-    CONSTRAINT FK_User_Subscription FOREIGN KEY (subscription_status) REFERENCES Subscription(subscription_tier)
+    CONSTRAINT FK_User_Card FOREIGN KEY (card_id) REFERENCES Card(card_id) ON DELETE CASCADE,
+    CONSTRAINT FK_User_Subscription FOREIGN KEY (subscription_status) REFERENCES Subscription(subscription_tier) ON DELETE CASCADE
 );
 
 CREATE TABLE Comments (
@@ -117,6 +117,6 @@ CREATE TABLE Comments (
     time_posted DATETIME NOT NULL,
     reply_count INT NOT NULL,
     PRIMARY KEY (user_id, story_id, time_posted),
-    CONSTRAINT FK_Comments_User FOREIGN KEY (user_id) REFERENCES User(user_id),
-    CONSTRAINT FK_Comments_Story FOREIGN KEY (story_id) REFERENCES Story(story_id)
+    CONSTRAINT FK_Comments_User FOREIGN KEY (user_id) REFERENCES User(user_id) ON DELETE CASCADE,
+    CONSTRAINT FK_Comments_Story FOREIGN KEY (story_id) REFERENCES Story(story_id)ON DELETE CASCADE
 );
