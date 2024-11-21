@@ -1,5 +1,6 @@
 <?php include 'header.php'; ?>
 <main>
+    <!--test comment-->
     <!-- Hero Section -->
     <section class="hero text-white d-flex align-items-center" style="background: url('assets/caracalhome.jpg') center center/cover no-repeat; height: 70vh;">
         <div class="container text-center" style="background: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 10px;">
