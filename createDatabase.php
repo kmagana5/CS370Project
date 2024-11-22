@@ -1,40 +1,12 @@
 <?php
 include_once("header.php");
 include 'db.php';
-$import_attempted = false;
-$import_succeeded = false;
+$execution_attempted = false;
+$execution_succeeded = false;
 $import_error_message = "";
-$successful_imports = 0;
-$failed_imports = 0;
+$successful_executions = 0;
+$failed_executions = 0;
 global $db;
-
-function parseSQLFile($content)
-{
-    $statements = [];
-    $buffer = '';
-    $lines = explode("\n", $content);
-
-    foreach ($lines as $line) {
-        $line = trim($line);
-
-        // Skip empty lines and comments
-        if (empty($line) || strpos($line, '--') === 0 || strpos($line, '#') === 0) {
-            continue;
-        }
-
-        // Add line to the buffer
-        $buffer .= $line;
-
-        // If a semicolon ends the line, treat it as the end of a query
-        if (substr($line, -1) === ';') {
-            $statements[] = $buffer;
-            $buffer = ''; // Reset buffer
-        }
-    }
-
-    // Return all parsed statements
-    return $statements;
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -42,11 +14,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sqlFilePath = 'database.sql';
 
     if (isset($_POST['upload'])) {
+
         if ($db->connect_errno) {
             $import_error_message = "Failed to connect to MySQL: " . $db->connect_error . "<br/>";
         } else {
 
-            //drop comment
+            $execution_attempted = true;
+
 // Read the SQL file
             $sqlContent = file_get_contents($sqlFilePath);
             if ($sqlContent === false) {
@@ -61,9 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 foreach ($sqlStatements as $statement) {
                     if (!empty($statement)) {
                         if ($db->query($statement) === true) {
-                            ++$successful_imports;
+                            ++$successful_executions;
                         } else {
-                            ++$failed_imports;
+                            ++$failed_executions;
                         }
                     }
                 }
@@ -72,14 +46,101 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo 'Caught exception: ', $e->getMessage(), "\n";
             }
 
-            if ($successful_imports > 0) {
-                $import_succeeded = true;
+            if ($successful_executions > 0) {
+                $execution_succeeded = true;
             }
 
 
-            // end drop comment
+// TO-DO: import csvs for Source, Advertiser, Subscription, and Category
 
+            $filenames = array(
+                'Sample_data/subscription_starter_data.csv',
+                'Sample_data/category_starter_data.csv',
+                'Sample_data/advertiser_starter_data.csv',
+                'Sample_data/source_starter_data.csv'
 
+            );
+
+            $queries = array(
+                "INSERT INTO Subscription (price) VALUES ( ?)",
+                "INSERT INTO Category (description) VALUES ( ?)",
+                "INSERT INTO Advertiser (company_name, contact_person, business_email, category_id) VALUES ( ?, ?, ?, ?)",
+                "INSERT INTO Source (url, organization) VALUES ( ?, ?)"
+            );
+
+            $contents = [];
+            $lines = [];
+            for ($i = 0; $i < sizeof($filenames); $i++) {
+                $contents[$i] = file_get_contents($filenames[$i]);
+                $lines[$i] = explode("\n", $contents[$i]);
+            }
+
+            // I hate code duplication but this is unfortunately necessary
+
+            // subscription
+            for ($i = 0; $i < sizeof($lines[0]); $i++) {
+                $line = $lines[0][$i];
+                if (trim($line) == "") {
+                    continue;
+                }
+                $parsed_csv_line = str_getcsv($line);
+                $stmt = $db->prepare($queries[0]);
+                echo $parsed_csv_line[0] . "<br>";
+                if ($stmt) {
+                    $stmt->bind_param('d', $parsed_csv_line[0]);
+                    if ($stmt->execute()) {
+                    }
+                    $stmt->close();
+                }
+            }
+
+            //category
+            for ($i = 0; $i < sizeof($lines[1]); $i++) {
+                $line = $lines[1][$i];
+                if (trim($line) == "") {
+                    continue;
+                }
+                $parsed_csv_line = str_getcsv($line);
+                $stmt = $db->prepare($queries[1]);
+                if ($stmt) {
+                    $stmt->bind_param('s', $parsed_csv_line[0]);
+                    if ($stmt->execute()) {
+                    }
+                    $stmt->close();
+                }
+            }
+
+            //advertiser
+            for ($i = 0; $i < sizeof($lines[2]); $i++) {
+                $line = $lines[2][$i];
+                if (trim($line) == "") {
+                    continue;
+                }
+                $parsed_csv_line = str_getcsv($line);
+                $stmt = $db->prepare($queries[2]);
+                if ($stmt) {
+                    $stmt->bind_param('sssi', $parsed_csv_line[0], $parsed_csv_line[1], $parsed_csv_line[2], $parsed_csv_line[3]);
+                    if ($stmt->execute()) {
+                    }
+                    $stmt->close();
+                }
+            }
+
+            // source
+            for ($i = 0; $i < sizeof($lines[3]); $i++) {
+                $line = $lines[3][$i];
+                if (trim($line) == "") {
+                    continue;
+                }
+                $parsed_csv_line = str_getcsv($line);
+                $stmt = $db->prepare($queries[3]);
+                if ($stmt) {
+                    $stmt->bind_param('ss', $parsed_csv_line[0], $parsed_csv_line[1]);
+                    if ($stmt->execute()) {
+                    }
+                    $stmt->close();
+                }
+            }
         }
     } else if (isset($_POST['reset'])) {
         if ($db->connect_errno) {
@@ -119,13 +180,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="card-body">
             <?php
-            if ($import_attempted) {
-                if ($import_succeeded) {
+            if ($execution_attempted) {
+                if ($execution_succeeded) {
                     ?>
                     <div class="alert alert-success" role="alert">
                         <h4 class="alert-heading">Execution Succeeded!</h4>
-                        <p>Successfully executed <?php echo $successful_imports; ?> queries.</p>
-                        <p><?php echo $failed_imports; ?> queries failed to execute.</p>
+                        <p>Successfully executed <?php echo $successful_executions; ?> queries.</p>
+                        <p><?php echo $failed_executions; ?> queries failed to execute.</p>
                     </div>
                     <?php
                 } else {
@@ -138,6 +199,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <?php
                 }
             }
+
+
             ?>
             <form method="post" enctype="multipart/form-data" class="mt-4">
                 <div class="mb-3">
