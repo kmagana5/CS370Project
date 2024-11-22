@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
 
-// TO-DO: import csvs for Source, Advertiser, Subscription, and Category
+// TO-DO: import csvs for Source, Advertiser, Subscription, and Category --DONE
 
             $filenames = array(
                 'Sample_data/subscription_starter_data.csv',
@@ -83,11 +83,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (trim($line) == "") {
                     continue;
                 }
-                $parsed_csv_line = str_getcsv($line);
+//                $parsed_csv_line = str_getcsv($line);
+//                $stmt = $db->prepare($queries[0]);
+//                echo $parsed_csv_line[0] . "<br>";
+                $parsed_csv_line = array_map('trim', str_getcsv($line));
+                $price = (float)preg_replace('/[^\d.]/', '', $parsed_csv_line[0]);
                 $stmt = $db->prepare($queries[0]);
-                echo $parsed_csv_line[0] . "<br>";
                 if ($stmt) {
-                    $stmt->bind_param('d', $parsed_csv_line[0]);
+                    echo "Parsed price: $price<br>";
+                    $stmt->bind_param('d', $price);
                     if ($stmt->execute()) {
                     }
                     $stmt->close();
