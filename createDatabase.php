@@ -87,10 +87,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //                $stmt = $db->prepare($queries[0]);
 //                echo $parsed_csv_line[0] . "<br>";
                 $parsed_csv_line = array_map('trim', str_getcsv($line));
-                $price = (float)preg_replace('/[^\d.]/', '', $parsed_csv_line[0]);
+                $price = (float)preg_replace('/[^\d.]/', '', $parsed_csv_line[0]); // fuck knows what
                 $stmt = $db->prepare($queries[0]);
                 if ($stmt) {
-                    echo "Parsed price: $price<br>";
+                    //echo "Parsed price: $price<br>";
                     $stmt->bind_param('d', $price);
                     if ($stmt->execute()) {
                     }

@@ -1,13 +1,11 @@
--Kobie
-    -import story data page
--Nav
--Stevan
--Isaac
+Import 1
+-imports unnormalized csv 1 file
+-first, insert card data
+-second, insert user data
+-third, insert comment data
 
-General stuff to do:
--import author data page
--import comments data page
--home page
--author report - Authors and their comments
--story report
--comments report
+Import 2
+-
+
+Import 3
+-
