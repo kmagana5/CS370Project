@@ -8,6 +8,7 @@ $import_error_message = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $successful_imports = 0;
     $failed_imports = 0;
+
 }
 ?>
 
