@@ -17,27 +17,36 @@
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow">
                     <div class="card-body">
-                        <h5 class="card-title">Import Stories</h5>
-                        <p class="card-text">Easily manage and import your stories with our intuitive interface.</p>
-                        <a href="importStoryData.php" class="btn btn-primary">Go to Import</a>
+                        <h5 class="card-title">Import Starter Data</h5>
+                        <p class="card-text">Easily import your Sources, Categories, Advertisers, and Subscription Data!</p>
+                        <a href="createDatabase.php" class="btn btn-primary">Go to Import</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow">
                     <div class="card-body">
-                        <h5 class="card-title">Import Authors</h5>
-                        <p class="card-text">Here is where you add the information about the amazing authors keeping this incredibly niche news website running.</p>
-                        <a href="importAuthorData.php" class="btn btn-primary">View Authors</a>
+                        <h5 class="card-title">Import First CSV</h5>
+                        <p class="card-text">Easily import Stories, Images, and Analytics!</p>
+                        <a href="importCSV1.php" class="btn btn-primary">Go to Import</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow">
                     <div class="card-body">
-                        <h5 class="card-title">Import Comments</h5>
-                        <p class="card-text">Add data relating to the comments our wonderful users make about caracals</p>
-                        <a href="importCommentData.php" class="btn btn-primary">View Comments</a>
+                        <h5 class="card-title">Import Second CSV</h5>
+                        <p class="card-text">Easily import Users and their data!</p>
+                        <a href="importCSV2.php" class="btn btn-primary">Go to Import</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Import Third CSV</h5>
+                        <p class="card-text">Easily import Authors and their projects they worked on!</p>
+                        <a href="importCSV3.php" class="btn btn-primary">Go to Import</a>
                     </div>
                 </div>
             </div>
