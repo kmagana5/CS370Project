@@ -58,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                     $stmt->close();
                 }
+                $story_check_stmt->close();
 
                 // Insert Analytics
                 $stmt1 = $db->prepare("INSERT INTO analytics (story_id, views, likes, shares, time_reading_in_minutes) VALUES (?, ?, ?, ?, ?)");

@@ -110,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
                     $update_stmt->close();
 
-            } else {
+                } else {
                     $stmt = $db->prepare("INSERT INTO Comments (user_id, story_id, time_posted, reply_count) VALUES (?, ?, ?, ?)");
                     if ($stmt) {
                         $stmt->bind_param('iisi', $user_id, $story_id, $comment_time_posted, $reply_count);

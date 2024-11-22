@@ -34,19 +34,18 @@ CREATE TABLE Author (
 );
 
 CREATE TABLE Written (
-    story_id INT NOT NULL,
     author_id INT NOT NULL,
+    story_id INT NOT NULL,
     PRIMARY KEY (story_id, author_id),
     CONSTRAINT FK_Written_Story FOREIGN KEY (story_id) REFERENCES Story(story_id) ON DELETE CASCADE,
     CONSTRAINT FK_Written_Author FOREIGN KEY (author_id) REFERENCES Author(author_id) ON DELETE CASCADE
 );
 
 CREATE TABLE EditorNotes (
-    note_id INT NOT NULL AUTO_INCREMENT,
-    story_id INT NOT NULL,
     author_id INT NOT NULL,
+    story_id INT NOT NULL,
     time_added DATETIME NOT NULL,
-    PRIMARY KEY (note_id, story_id),
+    PRIMARY KEY (story_id, author_id, time_added),
     CONSTRAINT FK_EditorNotes_Story FOREIGN KEY (story_id) REFERENCES Story(story_id) ON DELETE CASCADE,
     CONSTRAINT FK_EditorNotes_Author FOREIGN KEY (author_id) REFERENCES Author(author_id) ON DELETE CASCADE
 );
