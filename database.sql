@@ -91,7 +91,7 @@ CREATE TABLE Subscription (
 
 CREATE TABLE Card (
     card_id INT NOT NULL AUTO_INCREMENT,
-    card_num INT UNIQUE NOT NULL,
+    card_num VARCHAR(19) UNIQUE NOT NULL,
     security_code INT NOT NULL,
     expires_on VARCHAR(255) NOT NULL,
     zip INT NOT NULL,

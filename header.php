@@ -22,7 +22,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="importStoryData.php">Import Stories</a>
+                        <a class="nav-link" href="importCSV1.php">Import CSV1</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="importAuthorData.php">Import Authors</a>
