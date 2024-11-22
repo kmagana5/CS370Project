@@ -126,7 +126,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $comment_check_stmt->close();
             } else {
                 echo "Invalid story_id: $story_id<br>";
-                // Optionally log or insert a placeholder story
             }
             $story_check_stmt->close();
 
