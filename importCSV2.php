@@ -142,13 +142,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Data Import</title>
+    <title>Data Import 2</title>
 </head>
 <body>
 <div class="container mt-5">
     <div class="card">
         <div class="card-header text-white">
-            <h1 class="mb-0">Data Import 1</h1>
+            <h1 class="mb-0">Data Import 2</h1>
         </div>
         <div class="card-body">
             <?php

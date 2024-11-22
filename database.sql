@@ -52,12 +52,11 @@ CREATE TABLE EditorNotes (
 );
 
 CREATE TABLE Image (
-    image_id INT NOT NULL AUTO_INCREMENT,
     story_id INT NOT NULL,
     image_file VARCHAR(255) NOT NULL,
     alt_text VARCHAR(255) NOT NULL,
     date_uploaded VARCHAR(255) NOT NULL,
-    PRIMARY KEY (image_id, story_id),
+    PRIMARY KEY (story_id),
     CONSTRAINT FK_Image_Story FOREIGN KEY (story_id) REFERENCES Story(story_id) ON DELETE CASCADE
 );
 

@@ -57,8 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'Sample_data/subscription_starter_data.csv',
                 'Sample_data/category_starter_data.csv',
                 'Sample_data/advertiser_starter_data.csv',
-                'Sample_data/source_starter_data.csv',
-                'Sample_data/story_starter_data.csv'
+                'Sample_data/source_starter_data.csv'//,
+                //'Sample_data/story_starter_data.csv'
 
             );
 
@@ -66,8 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "INSERT INTO Subscription (price) VALUES ( ?)",
                 "INSERT INTO Category (description) VALUES ( ?)",
                 "INSERT INTO Advertiser (company_name, contact_person, business_email, category_id) VALUES ( ?, ?, ?, ?)",
-                "INSERT INTO Source (url, organization) VALUES ( ?, ?)",
-                "INSERT INTO Story (headline, views,publish_date,category_id, source_id) VALUES ( ?, ?,?,?,?)",
+                "INSERT INTO Source (url, organization) VALUES ( ?, ?)"//,
+                //"INSERT INTO Story (headline, views,publish_date,category_id, source_id) VALUES ( ?, ?,?,?,?)",
             );
 
             $contents = [];
@@ -147,20 +147,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
             }
             //story
-            for ($i = 0; $i < sizeof($lines[4]); $i++) {
-                $line = $lines[4][$i];
-                if (trim($line) == "") {
-                    continue;
-                }
-                $parsed_csv_line = str_getcsv($line);
-                $stmt = $db->prepare($queries[4]);
-                if ($stmt) {
-                    $stmt->bind_param('sisii', $parsed_csv_line[0], $parsed_csv_line[1], $parsed_csv_line[2], $parsed_csv_line[3], $parsed_csv_line[4]);
-                    if ($stmt->execute()) {
-                    }
-                    $stmt->close();
-                }
-            }
+//            for ($i = 0; $i < sizeof($lines[4]); $i++) {
+//                $line = $lines[4][$i];
+//                if (trim($line) == "") {
+//                    continue;
+//                }
+//                $parsed_csv_line = str_getcsv($line);
+//                $stmt = $db->prepare($queries[4]);
+//                if ($stmt) {
+//                    $stmt->bind_param('sisii', $parsed_csv_line[0], $parsed_csv_line[1], $parsed_csv_line[2], $parsed_csv_line[3], $parsed_csv_line[4]);
+//                    if ($stmt->execute()) {
+//                    }
+//                    $stmt->close();
+//                }
+//            }
         }
     } else if (isset($_POST['reset'])) {
         if ($db->connect_errno) {

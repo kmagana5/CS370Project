@@ -77,14 +77,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Author Data Import</title>
+    <title>Data Import 3</title>
 </head>
 <body>
 
 <div class="container mt-5">
     <div class="card">
         <div class="card-header text-white">
-            <h1 class="mb-0">Author Data Import</h1>
+            <h1 class="mb-0">Data Import 3</h1>
         </div>
         <div class="card-body">
             <?php
