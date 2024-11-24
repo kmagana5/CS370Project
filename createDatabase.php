@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
-<div class="container mt-5">
+<main class="container mt-5">
     <div class="card">
         <div class="card-header text-white">
             <h1 class="mb-0"> Sample Data Import</h1>
@@ -230,7 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
-</div>
+</main>
 
 <script src="js/bootstrap.bundle.js"></script>
 </body>
