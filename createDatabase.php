@@ -231,8 +231,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 </main>
-
-<script src="js/bootstrap.bundle.js"></script>
 </body>
 </html>
 

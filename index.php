@@ -1,6 +1,5 @@
 <?php include 'header.php'; ?>
 <main>
-    <!--test comment 2-->
     <!-- Hero Section -->
     <section class="hero text-white d-flex align-items-center" style="background: url('assets/caracalhome.jpg') center center/cover no-repeat; height: 70vh;">
         <div class="container text-center" style="background: rgba(0, 0, 0, 0.5); padding: 20px; border-radius: 10px;">
@@ -9,9 +8,7 @@
             <a href="importStoryData.php" class="btn btn-light btn-lg">Get Started</a>
         </div>
     </section>
-
-
-    <!-- Imports and reports ections -->
+    <!-- Imports and reports sections -->
     <section class="container mt-5">
         <div class="row text-center">
             <div class="col-md-4 mb-4">
@@ -61,7 +58,8 @@
             </div>
         </div>
     </section>
+    <?php include_once('footer.php'); ?>
 </main>
-<script src="js/bootstrap.bundle.js"></script>
 </body>
 </html>
+

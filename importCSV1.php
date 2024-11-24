@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Data Import 1</title>
 </head>
 <body>
-    <main class="container mt-5">
+    <main class="container mt-6">
         <div class="card">
             <div class="card-header text-white">
                 <h1 class="mb-0">Data Import 1</h1>
@@ -145,7 +145,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </main>
-<script src="js/bootstrap.bundle.js"></script>
 </body>
 </html>
 <?php include_once('footer.php'); ?>
