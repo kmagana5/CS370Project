@@ -52,7 +52,7 @@
                     <div class="card-body">
                         <h5 class="card-title">View Reports</h5>
                         <p class="card-text">Access the reports we have been assigned.</p>
-                        <a href="#" class="btn btn-primary">View Reports</a>
+                        <a href="reports.php" class="btn btn-primary">View Reports</a>
                     </div>
                 </div>
             </div>
