@@ -163,7 +163,7 @@ if ($db->connect_errno) {
                     <col style="width: 100px">
                     <col style="width: 650px">
                     <col style="width: 200px">
-                    <col style="width: 200px">
+                    <col style="width: 300px">
                     <col style="width: 200px">
                     <col style="width: 150px">
                 </colgroup>
