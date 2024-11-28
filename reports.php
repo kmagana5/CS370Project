@@ -203,7 +203,6 @@ if ($db->connect_errno) {
                         $query2 = "SELECT a.story_id, a.views, a.likes, a.shares, a.time_reading_in_minutes
                                 FROM story s
                                 JOIN analytics a ON s.story_id = a.story_id
-                                JOIN image i ON s.story_id = i.story_id 
                                 WHERE a.story_id = '$st_id'";
 
                         $result2 = $db->query($query2);
@@ -273,7 +272,6 @@ if ($db->connect_errno) {
 
                         $query3 = "SELECT i.story_id, i.image_file, i.alt_text, i.date_uploaded
                                 FROM story s
-                                JOIN analytics a ON s.story_id = a.story_id
                                 JOIN image i ON s.story_id = i.story_id 
                                 WHERE i.story_id = '$st_id'";
 
