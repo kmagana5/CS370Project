@@ -64,9 +64,8 @@ if ($db->connect_errno) {
                         $auth_id = $row['author_id'];
                         $query2 = "SELECT e.author_id, e.story_id, e.time_added
                                 FROM author a
-                                JOIN written w ON w.author_id = a.author_id
                                 JOIN editornotes e ON a.author_id = e.author_id 
-                                WHERE w.author_id = '$auth_id'";
+                                WHERE e.author_id = '$auth_id'";
 
                         $result2 = $db->query($query2);
 
@@ -125,13 +124,12 @@ if ($db->connect_errno) {
                             <th>Story ID</th>
                         </tr>";
 
-                        $query3 = "SELECT e.author_id, e.story_id, e.time_added
+                        $query3 = "SELECT w.author_id, w.story_id
                                 FROM author a
                                 JOIN written w ON w.author_id = a.author_id
-                                JOIN editornotes e ON a.author_id = e.author_id 
-                                WHERE e.author_id = '$auth_id'";
+                                WHERE w.author_id = '$auth_id'";
 
-                        $result3 = $db->query($query2);
+                        $result3 = $db->query($query3);
 
                         if (!$result3) {
                             die("". $db->error);
@@ -358,7 +356,6 @@ if ($db->connect_errno) {
                         $query2 = "SELECT ca.card_id, ca.card_num, ca.security_code, ca.expires_on, ca.zip
                                 FROM user u
                                 JOIN card ca ON u.card_id = ca.card_id
-                                JOIN comments co ON u.user_id = co.user_id 
                                 WHERE ca.card_id = '$ca_id'";
 
                         $result2 = $db->query($query2);
@@ -430,7 +427,6 @@ if ($db->connect_errno) {
                         $us_id = $row['user_id'];
                         $query3 = "SELECT co.user_id, co.story_id, co.time_posted, co.reply_count
                                 FROM user u
-                                JOIN card ca ON u.card_id = ca.card_id
                                 JOIN comments co ON u.user_id = co.user_id 
                                 WHERE co.user_id = '$us_id'";
 

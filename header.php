@@ -32,7 +32,7 @@
                         <a class="nav-link" href="importCSV3.php">Import CSV 3</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Reports</a>
+                        <a class="nav-link" href="reports.php">Reports</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="createDatabase.php">Create Database</a>
