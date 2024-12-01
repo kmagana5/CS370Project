@@ -5,25 +5,30 @@ $import_attempted = false;
 $import_succeeded = false;
 $import_error_message = "";
 
+// see if the button to upload the data was clicked
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $import_attempted = true;
     mysqli_report(MYSQLI_REPORT_ERROR);
     global $db;
 
+    // Connect to database
     if ($db->connect_errno) {
         $import_error_message = "Failed to connect to MySQL: " . $db->connect_error . "<br/>";
     } else {
+        // Get the contents of the file and seperate into each line
         $contents = file_get_contents($_FILES["importFile"]["tmp_name"]);
         $lines = explode("\n", $contents);
         $successful_imports = 0;
         $failed_imports = 0;
 
+        // Parse through line by line and do what we did for csv1
         for ($i = 1; $i < sizeof($lines); ++$i) {
             $line = $lines[$i];
             if (trim($line) === "") {
                 continue;
             }
 
+            // Assign the value name for parsed_csv_line
             $parsed_csv_line = str_getcsv($line);
             list(
                 $first_name, $last_name, $display_name, $email, $card_num, $security_code, $expires_on, $zip,
@@ -31,24 +36,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ) = $parsed_csv_line;
 
             // Handle Card Table
+            // Again, with inserting into the database we will need a reference of the card_id so our other tables will
+            // match corresponding data
             $card_id = null;
             $card_check_query = "SELECT card_id FROM Card WHERE card_num = ?";
             $card_check_stmt = $db->prepare($card_check_query);
-            $card_check_stmt->bind_param('s', $card_num);
+            $card_check_stmt->bind_param('s', $card_num); // bind and we are formatting as a string because some people put spaces in their card number
             $card_check_stmt->execute();
             $card_check_result = $card_check_stmt->get_result();
 
             if ($card_check_result->num_rows > 0) {
                 // Card already exists
                 $card_row = $card_check_result->fetch_assoc();
-                $card_id = $card_row['card_id'];
+                $card_id = $card_row['card_id']; // Get the card_id already associated with
             } else {
                 // Insert new card
                 $stmt = $db->prepare("INSERT INTO Card (card_num, security_code, expires_on, zip) VALUES (?, ?, ?, ?)");
                 if ($stmt) {
                     $stmt->bind_param('siss', $card_num, $security_code, $expires_on, $zip);
                     if ($stmt->execute()) {
-                        $card_id = $db->insert_id;
+                        $card_id = $db->insert_id; // get the card_id associated with other data
                     } else {
                         echo "Card insertion error: " . $stmt->error . "<br>";
                     }
@@ -75,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($stmt) {
                     $stmt->bind_param('ssssii', $first_name, $last_name, $display_name, $email, $card_id, $subscription_tier);
                     if ($stmt->execute()) {
-                        $user_id = $db->insert_id;
+                        $user_id = $db->insert_id; // Get user id associated with the other data
                     } else {
                         echo "User insertion error: " . $stmt->error . "<br>";
                     }

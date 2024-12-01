@@ -1,5 +1,6 @@
 <?php
-
+    // Pretty self explanatory...uses bootstrap to carousel (kinda like a slideshow) through each photo in our assets folder
+    // its pretty cool
 ?>
 <footer>
     <div class="footer-carousel left-carousel">

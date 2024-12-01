@@ -21,17 +21,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $execution_attempted = true;
 
-// Read the SQL file
+            // Read the SQL file
             $sqlContent = file_get_contents($sqlFilePath);
             if ($sqlContent === false) {
                 die("Failed to read the SQL file.");
             }
 
-// Split the file into individual SQL statements
+            // Split the file into individual SQL statements
             $sqlStatements = parseSQLFile($sqlContent);
 
             try {
-// Execute each SQL statement
+                // Execute each SQL statement
                 foreach ($sqlStatements as $statement) {
                     if (!empty($statement)) {
                         if ($db->query($statement) === true) {
@@ -51,8 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
 
-// TO-DO: import csvs for Source, Advertiser, Subscription, and Category --DONE
-
+            // TO-DO: import csvs for Source, Advertiser, Subscription, and Category --DONE
+            // Importing all pre-saved data
             $filenames = array(
                 'Sample_data/subscription_starter_data.csv',
                 'Sample_data/category_starter_data.csv',
@@ -62,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             );
 
+                // insert into queries in an array to minimize code duplication
             $queries = array(
                 "INSERT INTO Subscription (price) VALUES ( ?)",
                 "INSERT INTO Category (description) VALUES ( ?)",
@@ -70,6 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 //"INSERT INTO Story (headline, views,publish_date,category_id, source_id) VALUES ( ?, ?,?,?,?)",
             );
 
+            // Read the contents of each file in the filename list
             $contents = [];
             $lines = [];
             for ($i = 0; $i < sizeof($filenames); $i++) {
@@ -77,17 +79,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $lines[$i] = explode("\n", $contents[$i]);
             }
 
-            // I hate code duplication but this is unfortunately necessary
+            // I hate code duplication but this unfortunately how we are inserting starting data
 
-            // subscription
+            // subscription data
             for ($i = 0; $i < sizeof($lines[0]); $i++) {
                 $line = $lines[0][$i];
                 if (trim($line) == "") {
                     continue;
                 }
-//                $parsed_csv_line = str_getcsv($line);
-//                $stmt = $db->prepare($queries[0]);
-//                echo $parsed_csv_line[0] . "<br>";
+
+                // Kobie, please explain, I don't understand this...
+                // I think it's your method of trying to read decimals...or something to conver the float
                 $parsed_csv_line = array_map('trim', str_getcsv($line));
                 $price = (float)preg_replace('/[^\d.]/', '', $parsed_csv_line[0]); // fuck knows what
                 $stmt = $db->prepare($queries[0]);
@@ -102,6 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             //category
             for ($i = 0; $i < sizeof($lines[1]); $i++) {
+                // in the 2d array, we will look at the [1] position and store all lines in that array
                 $line = $lines[1][$i];
                 if (trim($line) == "") {
                     continue;
@@ -146,6 +149,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt->close();
                 }
             }
+            // We had trouble with our import processes since someone might try to import csv 2
+            // without inserting story data -- FIXED
             //story
 //            for ($i = 0; $i < sizeof($lines[4]); $i++) {
 //                $line = $lines[4][$i];
@@ -162,6 +167,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 //                }
 //            }
         }
+
+        // This is to erase the entire database
+        // DEBUG and initialization only!!!!!!
     } else if (isset($_POST['reset'])) {
         if ($db->connect_errno) {
             $import_error_message = "Failed to connect to MySQL: " . $db->connect_error . "<br/>";
@@ -169,9 +177,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // In case we ever need to drop all tables use this code
             mysqli_report(MYSQLI_REPORT_ERROR);
 
+            // Ignore foreign key restraints so when we delete it wil drop tables with foreign key constraints
             $db->query('SET foreign_key_checks = 0');
             if ($result = $db->query("SHOW TABLES")) {
                 while ($row = $result->fetch_array(MYSQLI_NUM)) {
+                    // If the table if it exists
                     $db->query('DROP TABLE IF EXISTS ' . $row[0]);
                 }
             }
@@ -198,6 +208,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <div class="card-body">
             <?php
+            // This is the green box that says if we successfully inserted into the database
             if ($execution_attempted) {
                 if ($execution_succeeded) {
                     ?>
@@ -207,7 +218,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <p><?php echo $failed_executions; ?> queries failed to execute.</p>
                     </div>
                     <?php
-                } else {
+                }
+                // This is the red box if it failed to upload
+                else {
                     ?>
                     <div class="alert alert-danger" role="alert">
                         <h4 class="alert-heading">Import Failed!</h4>

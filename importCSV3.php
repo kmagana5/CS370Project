@@ -5,25 +5,41 @@ $import_attempted = false;
 $import_succeeded = false;
 $import_error_message = "";
 
+// See if we clicked to upload data
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $import_attempted = true;
     mysqli_report(MYSQLI_REPORT_ERROR);
     global $db;
 
+    // connect to the database
     if ($db->connect_errno) {
         $import_error_message = "Failed to connect to MySQL: " . $db->connect_error . "<br/>";
     } else {
+        // get contents and split by each line
         $contents = file_get_contents($_FILES["importFile"]["tmp_name"]);
         $lines = explode("\n", $contents);
         $successful_imports = 0;
         $failed_imports = 0;
 
+        // Parse through each line and main loop to insert data
         for ($i = 1; $i < sizeof($lines); ++$i) {
             $line = $lines[$i];
             if (trim($line) === "") {
                 continue;
             }
 
+            // provide a key to each element in parsed csv line
+            // Note that though we do this for each import process, there is a fair amount of code duplication and similar
+            // statements...we accepted this code duplication for primarily a couple of reasons:
+            // 1. TO ACTUALLY SEE WTF IS GOING ON
+            // 2. We personally have to assign a value for each csv column which makes debugging personal
+            // 3. Separate queries (honestly with automation, this would not be a problem at all)
+            // 4. (Stevan's primary reason) unfamiliarity with php OOP
+            // 5. Practice for those of us uninitiated with php (I can see the counterargument that I should've just learned OOP
+            //      to prevent this reason, but I think using '$' to declare variables is about one of the worst ways to
+            //      syntactically do so...I am not against php, I actually enjoyed writing it, but it feels wrong to use '$';
+            //      this isn't laTex [but I think laTex uses '$' for the same reason php does so] to write math equations!!!!!)
+            // Sorry for the rant
             $parsed_csv_line = str_getcsv($line);
             list(
                 $first_name, $last_name, $alma_mater, $email,
@@ -118,13 +134,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $editor_check_result = $editor_check_stmt->get_result();
 
                 if($editor_check_result->num_rows > 0){
+                    // The "SELECT 1" query isv very unqiue because what it does is returns a table that is filled with 1's, which
+                    // doesn't seem all that useful until you reason that is a great way to ask for existence in a tale as we do
+                    // so to see the time added for each editor note
                     $time_check_query = "SELECT 1 FROM EditorNotes WHERE time_added = ?";
                     $time_check_stmt = $db->prepare($time_check_query);
                     $time_check_stmt->bind_param('s', $time_note_added);
                     $time_check_stmt->execute();
                     $time_check_result = $time_check_stmt->get_result();
 
+                    // This if statement is checking existence to see if it exists
                     if($time_check_result->num_rows == 0){
+                        // doesnt exist so insert into
                         $stmt = $db->prepare("INSERT INTO EditorNotes (author_id, story_id, time_added) VALUES (?, ?, ?)");
                         if($stmt) {
                             $stmt->bind_param('iis', $author_id, $story_edited_on, $time_note_added);
