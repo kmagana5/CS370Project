@@ -456,3 +456,5 @@ if ($db->connect_errno) {
     
 </body>
 </html>
+<?php
+include_once("footer.php");
