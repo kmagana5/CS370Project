@@ -88,10 +88,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     continue;
                 }
 
-                // Kobie, please explain, I don't understand this...
-                // I think it's your method of trying to read decimals...or something to conver the float
+                //trims the parsed csv lines to ensure there is not extra whitespace ex: "  $45.21 " --> "$45.21"
                 $parsed_csv_line = array_map('trim', str_getcsv($line));
-                $price = (float)preg_replace('/[^\d.]/', '', $parsed_csv_line[0]); // fuck knows what
+                // Ensures the only characters that are accepted are digits or periods, replaces anything else with empty string
+                $price = (float)preg_replace('/[^\d.]/', '', $parsed_csv_line[0]);
                 $stmt = $db->prepare($queries[0]);
                 if ($stmt) {
                     //echo "Parsed price: $price<br>";
