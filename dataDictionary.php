@@ -42,5 +42,8 @@ if (($handle = fopen($filePath, 'r')) !== false) {
             </tbody>
         </table>
 </div>
+<div>
+    <img src="assets/ERD.png">
+</div>
 <?php
 include_once("footer.php");
