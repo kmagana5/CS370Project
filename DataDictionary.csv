@@ -1,0 +1,54 @@
+﻿Table Name,Column Name,Data Type,Constraints,Description
+Category,category_id,INT,"NOT NULL, AUTO_INCREMENT, PRIMARY KEY",Unique identifier for each category.
+,description,VARCHAR(255),NOT NULL,Description of the category.
+Source,source_id,INT,"NOT NULL, AUTO_INCREMENT, PRIMARY KEY",Unique identifier for each source.
+,url,VARCHAR(255),NOT NULL,URL of the source.
+,organization,VARCHAR(255),NOT NULL,Name of the organization associated with the source.
+Story,story_id,INT,"NOT NULL, AUTO_INCREMENT, PRIMARY KEY",Unique identifier for each story.
+,headline,VARCHAR(255),NOT NULL,Headline of the story.
+,views,INT,NOT NULL,Number of views the story has received.
+,publish_date,DATETIME,NOT NULL,Publish date of the story.
+,category_id,INT,Foreign key referencing Category(category_id),Category to which the story belongs.
+,source_id,INT,Foreign key referencing Source(source_id),Source of the story.
+Author,author_id,INT,"NOT NULL, AUTO_INCREMENT, PRIMARY KEY",Unique identifier for each author.
+,first_name,VARCHAR(255),NOT NULL,Author's first name.
+,last_name,VARCHAR(255),NOT NULL,Author's last name.
+,alma_mater,VARCHAR(255),NOT NULL,Author's alma mater.
+,email,VARCHAR(255),NOT NULL,Author's email address.
+,author_id,INT,"NOT NULL, Foreign key referencing Author(author_id)",Author involved in writing the story.
+,story_id,INT,"NOT NULL, Foreign key referencing Story(story_id)",Story written by the author.
+EditorNotes,author_id,INT,"NOT NULL, Foreign key referencing Author(author_id)",Author who added the editor's note.
+,story_id,INT,"NOT NULL, Foreign key referencing Story(story_id)",Story associated with the editor's note.
+,time_added,DATETIME,"NOT NULL, PRIMARY KEY (story_id, author_id, time_added)",Time when the note was added.
+Image,story_id,INT,"NOT NULL, PRIMARY KEY, Foreign key referencing Story(story_id)",Story associated with the image.
+,image_file,VARCHAR(255),NOT NULL,File name of the image.
+,alt_text,VARCHAR(255),NOT NULL,Alternative text for the image.
+,date_uploaded,VARCHAR(255),NOT NULL,Date when the image was uploaded.
+Analytics,story_id,INT,"NOT NULL, PRIMARY KEY, Foreign key referencing Story(story_id)",Story associated with the analytics.
+,views,INT,NOT NULL,Number of views for the story.
+,likes,INT,NOT NULL,Number of likes for the story.
+,shares,INT,NOT NULL,Number of shares for the story.
+,time_reading_in_minutes,INT,NOT NULL,Average time spent reading the story.
+Advertiser,advertiser_id,INT,"NOT NULL, AUTO_INCREMENT, PRIMARY KEY",Unique identifier for each advertiser.
+,company_name,VARCHAR(255),NOT NULL,Name of the company.
+,contact_person,VARCHAR(255),NOT NULL,Contact person for the advertiser.
+,business_email,VARCHAR(255),NOT NULL,Email address of the advertiser.
+,category_id,INT,Foreign key referencing Category(category_id),Category associated with the advertiser.
+Subscription,subscription_tier,INT,"NOT NULL, AUTO_INCREMENT, PRIMARY KEY",Unique identifier for each subscription tier.
+,price,"DECIMAL(6,2)",NOT NULL,Price of the subscription tier.
+Card,card_id,INT,"NOT NULL, AUTO_INCREMENT, PRIMARY KEY",Unique identifier for each payment card.
+,card_num,VARCHAR(19),"NOT NULL, UNIQUE",Card number.
+,security_code,INT,NOT NULL,Security code of the card.
+,expires_on,VARCHAR(255),NOT NULL,Expiration date of the card.
+,zip,INT,NOT NULL,ZIP code of the card holder.
+User,user_id,INT,"NOT NULL, AUTO_INCREMENT, PRIMARY KEY",Unique identifier for each user.
+,first_name,VARCHAR(255),NOT NULL,User's first name.
+,last_name,VARCHAR(255),NOT NULL,User's last name.
+,display_name,VARCHAR(255),NOT NULL,User's display name.
+,email,VARCHAR(255),NOT NULL,User's email address.
+,card_id,INT,Foreign key referencing Card(card_id),Payment card used by the user.
+,subscription_status,INT,Foreign key referencing Subscription(subscription_tier),User's subscription status.
+Comments,user_id,INT,"NOT NULL, Foreign key referencing User(user_id)",User who posted the comment.
+,story_id,INT,"NOT NULL, Foreign key referencing Story(story_id)",Story on which the comment was posted.
+,time_posted,DATETIME,"NOT NULL, PRIMARY KEY (user_id, story_id, time_posted)",Time when the comment was posted.
+,reply_count,INT,NOT NULL,Number of replies to the comment.

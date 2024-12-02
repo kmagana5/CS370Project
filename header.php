@@ -37,6 +37,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="createDatabase.php">Create Database</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dataDictionary.php">Data Dictionary</a>
+                    </li>
                 </ul>
             </div>
         </div>

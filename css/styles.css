@@ -68,7 +68,7 @@ footer {
     position: relative;
     font-family: 'Poppins', sans-serif;
     overflow: hidden;
-    max-height: 300px;
+    min-height: 250px;
 }
 
 .footer-content {
